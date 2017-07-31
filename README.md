@@ -39,7 +39,10 @@ your code to ensure that it works correctly.
 `client_connect_test` requires your token in `token.data.txt`
 
 ### Known Allocation Error Locations ###
+These aren't my fault, they're leftover from the fork.
 
-- `client_internal.c`: `client_ws_receive_callback` and `cJSON_Parse`
-- `websocket.c`: `websocket_free`
-- `websocket_internal.c`: on `LWS_CALLBACK_CLIENT_RECEIVE` calls `realloc`
+
+- `client_internal.c: client_ws_receive_callback -> cJSON_Parse`
+- `websocket.c: websocket_free`
+- `websocket_internal.c: on LWS_CALLBACK_CLIENT_RECEIVE calls realloc`
+- `client.c: client_send_message -> exec_request`

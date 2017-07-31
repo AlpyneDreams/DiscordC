@@ -137,7 +137,7 @@ int client_ws_receive_callback(client_websocket_t* socket, char* data, size_t le
 
 	(void)length; /* unused as data is null-terminated */
 
-	// allocation errors
+	// allocation errors here
 	cJSON* root = cJSON_Parse(data);
 
 	if (root) {

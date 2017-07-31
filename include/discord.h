@@ -2,7 +2,7 @@
 
 #define LIB_EXPORT __attribute__((__visibility__("default")))
 
-#define DISCCORD_PROJECT_URL "https://github.com/FiniteReality/disccord"
+#define DISCCORD_PROJECT_URL "https://github.com/DankParrot/DiscordC"
 #define DISCCORD_VERSION_STRING "DiscordC 0.1.1-dev"
 
 #define _build_user_agent(a, b) "DiscordBot (" a ", " b ")"
