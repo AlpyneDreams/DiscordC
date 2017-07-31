@@ -12,7 +12,9 @@ A Discord library written in C, forked from disccord.
 - cJSON                                                 (tested with v1.5.7)
 
 You can retrieve the first three with apt-get:
-```sudo apt-get install libcurl4-openssl-dev libssl-dev libsodium-dev```
+```shell
+sudo apt-get install libcurl4-openssl-dev libssl-dev libsodium-dev
+```
 
 You may have to build libwebsockets (and maybe cJSON) yourself if you do not have a package for it.
 
