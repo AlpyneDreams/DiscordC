@@ -52,6 +52,8 @@ int discord_protocol(struct lws* wsi, enum lws_callback_reasons reason, void* us
 		{
 			size_t old_length = client->_current_packet_length;
 			size_t new_length = old_length + len;
+			// this also creates errors
+			// free() is commented out later on as well
 			void* new_data = realloc(client->_current_packet, new_length);
 			if (new_data) {
 				client->_current_packet = (char*)new_data;

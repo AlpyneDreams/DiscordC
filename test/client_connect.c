@@ -4,7 +4,6 @@
 
 #include "discord.h"
 #include "client.h"
-#include "message.h"
 
 int on_message_received(discord_client_t* client, message_t* message) {
 	printf("Message received: %s\n", message->_contents); /* TODO: provide better methods for this */

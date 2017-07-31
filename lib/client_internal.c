@@ -7,9 +7,6 @@
 #include <cjson/cJSON.h>
 
 #include "client_internal.h"
-
-#include "user.h"
-#include "message.h"
 #include "models/gateway.h"
 #include "models/dispatches.h"
 

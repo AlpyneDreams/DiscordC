@@ -1,3 +1,5 @@
+// discord.h: Core defines and discord.c functions
+
 #define LIB_EXPORT __attribute__((__visibility__("default")))
 
 #define DISCCORD_PROJECT_URL "https://github.com/FiniteReality/disccord"
@@ -16,5 +18,8 @@
 #define DISCORD_CDN_URL ("https://discordcdn.com/")
 #define DISCORD_INVITE_URL ("https://discord.gg/")
 
+/* Initializes disccord, calling all prerequesite functions. */
 LIB_EXPORT void disccord_init();
+
+/* Cleans up all resources created by disccord */
 LIB_EXPORT void disccord_cleanup();

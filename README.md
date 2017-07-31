@@ -42,6 +42,4 @@ your code to ensure that it works correctly.
 
 - `client_internal.c`: `client_ws_receive_callback` and `cJSON_Parse`
 - `websocket.c`: `websocket_free`
-
-Maybe fixed?
-- `websocket_internal.c`: on `LWS_CALLBACK_CLIENT_RECEIVE`
+- `websocket_internal.c`: on `LWS_CALLBACK_CLIENT_RECEIVE` calls `realloc`

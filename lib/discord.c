@@ -7,7 +7,6 @@
 
 #include "discord.h"
 
-/* Initializes disccord, calling all prerequesite functions. */
 void disccord_init() {
 	curl_global_init(CURL_GLOBAL_ALL);
 #ifdef LIBWEBSOCKET_DEBUG
@@ -18,7 +17,7 @@ void disccord_init() {
 #endif
 }
 
-/* Cleans up all resources created by disccord */
+
 void disccord_cleanup() {
 	ERR_remove_thread_state(NULL);
 

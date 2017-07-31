@@ -3,7 +3,6 @@
 
 #include "client.h"
 #include "client_internal.h"
-#include "message.h"
 
 enum http_method {
 	HTTP_GET,
