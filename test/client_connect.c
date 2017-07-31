@@ -6,7 +6,7 @@
 #include "client.h"
 #include "message.h"
 
-int client_message_received(discord_client_t* client, message_t* message) {
+int on_message_received(discord_client_t* client, message_t* message) {
 	printf("Message received: %s\n", message->_contents); /* TODO: provide better methods for this */
 	if (strstr(message->_contents, "!ping") == message->_contents) {
 		printf("Received ping command!\n");
@@ -21,26 +21,45 @@ int client_message_received(discord_client_t* client, message_t* message) {
 	return 0;
 }
 
-int main() {
+void on_unhandled_dispatch(discord_client_t* client, char* dispatch_str, cJSON* root) {
+	printf("Unhandled Dispatch: %s\n", dispatch_str);
+}
 
-	FILE* fp = fopen("token.data.txt", "r");
+void on_connected(discord_client_t* client) {
+	printf("Connected.\n");
+}
+
+char* get_token(const char* file) {
+	FILE* fp = fopen(file, "r");
 
 	if (!fp) {
 		perror("fopen");
-		return 1;
+		return NULL;
 	}
 
-	char token[128];
+	static char token[128];
 	fgets(token, 128, fp);
 	fclose(fp);
+
+	// remove trailing newlines
+	strtok(token, "\n");
+
+	return &token[0];
+}
+
+int main() {
+
+	const char* token = get_token("token.data.txt");
 
 	disccord_init();
 
 	discord_client_callbacks_t callbacks;
-	callbacks.on_message_receive = client_message_received;
+	callbacks.on_connected = on_connected;
+	callbacks.on_message_receive = on_message_received;
+	callbacks.on_unhandled_dispatch = on_unhandled_dispatch;
 
 	printf("Creating client...\n");
-	discord_client_t* client = client_create(&callbacks, token);
+	discord_client_t* client = discord_create_client(&callbacks, token);
 	if (client) {
 		printf("Successfully created client!\n");
 	} else {
@@ -59,7 +78,7 @@ int main() {
 	sleep(3); /* ensure there's enough time to disconnect cleanly */
 
 	printf("Freeing client...\n");
-	client_free(client);
+	discord_free_client(client);
 	printf("Successfully freed client!\n");
 
 	disccord_cleanup();

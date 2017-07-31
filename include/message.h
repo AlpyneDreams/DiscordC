@@ -1,5 +1,4 @@
-#ifndef _message_h_
-#define _message_h_
+#pragma once
 
 #include <stdint.h>
 
@@ -11,5 +10,3 @@ typedef struct {
 	const char* _contents;
 	user_info_t* _sender;
 } message_t;
-
-#endif /* _message_h_ */

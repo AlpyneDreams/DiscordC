@@ -6,12 +6,12 @@
 #include "websocket_internal.h"
 
 static struct lws_protocols protocols[] = {
-	{ "discord-protocol", discord_protocol, 0, 1024, 0, NULL },
-	{ NULL, NULL, 0, 0, 0, NULL } /* end */
+	{ "discord-protocol", discord_protocol, 0, 1024, 0, NULL, 0 },
+	{ NULL, NULL, 0, 0, 0, NULL, 0 } /* end */
 };
 
 static struct lws_extension exts[] = {
-	{ 
+	{
 		"permessage-deflate",
 		lws_extension_callback_pm_deflate,
 		"permessage-deflate; client_no_context_takeover; client_max_window_bits"
@@ -36,7 +36,7 @@ client_websocket_t* websocket_create(client_websocket_callbacks_t* callbacks) {
 
 	client_websocket_t *client = malloc(sizeof(client_websocket_t));
 	info.user = client;
-	
+
 	struct lws_context* context = lws_create_context(&info);
 	client->_context = context;
 	client->_remain_connected = 0;
@@ -106,7 +106,7 @@ void websocket_connect(client_websocket_t* client, const char* address) {
 	info.ietf_version_or_minus_one = -1;
 	info.client_exts = exts;
 
-	printf("protocol: %s\naddress: %s\nport: %i\npath: %s\nhost: %s\norigin: %s\n", prot, info.address, info.port, info.path, info.host, info.origin);
+	//printf("protocol: %s\naddress: %s\nport: %i\npath: %s\nhost: %s\norigin: %s\n", prot, info.address, info.port, info.path, info.host, info.origin);
 
 	client->_remain_connected = 1;
 

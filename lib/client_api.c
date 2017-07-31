@@ -1,5 +1,5 @@
 #include <curl/curl.h>
-#include <cJSON/cJSON.h>
+#include <cjson/cJSON.h>
 
 #include "client.h"
 #include "client_internal.h"
@@ -70,7 +70,7 @@ void exec_request(discord_client_t* client, struct curl_req* req, enum http_meth
 					break;
 				default:
 					break;
-			} 
+			}
 			break;
 		}
 		case HTTP_GET:
@@ -86,7 +86,7 @@ void exec_request(discord_client_t* client, struct curl_req* req, enum http_meth
 
 	curl_easy_cleanup(handle);
 	curl_slist_free_all(req->headers);
-	
+
 	free(req);
 
 	(void)client;

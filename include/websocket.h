@@ -1,5 +1,4 @@
-#ifndef _websocket_h_
-#define _websocket_h_
+#pragma once
 
 #include <libwebsockets.h>
 #include <pthread.h>
@@ -48,5 +47,3 @@ void websocket_disconnect(client_websocket_t* client);
 void websocket_think(client_websocket_t* websocket);
 
 int websocket_send(client_websocket_t* client, char* data, size_t len, int mode);
-
-#endif /* _websocket_h_ */

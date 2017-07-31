@@ -8,11 +8,11 @@ int main() {
 	disccord_init();
 
 	printf("Creating client...\n");
-	discord_client_t* client = client_create(NULL, "");
+	discord_client_t* client = discord_create_client(NULL, "");
 	printf("Successfully created client!\n");
 
 	printf("Freeing client...\n");
-	client_free(client);
+	discord_free_client(client);
 	printf("Successfully freed client!\n");
 
 	disccord_cleanup();

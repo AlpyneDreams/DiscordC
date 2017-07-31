@@ -6,7 +6,7 @@
 #include "client.h"
 #include "client_internal.h"
 
-discord_client_t* client_create(discord_client_callbacks_t* callbacks, const char* token) {
+discord_client_t* discord_create_client(discord_client_callbacks_t* callbacks, const char* token) {
 	if (!token || !validateToken(token)) {
 		/* invalid token */
 		return NULL;
@@ -27,7 +27,7 @@ discord_client_t* client_create(discord_client_callbacks_t* callbacks, const cha
 	return client;
 }
 
-void client_free(discord_client_t* client) {
+void discord_free_client(discord_client_t* client) {
 	/* disconnect the websocket if we are connected */
 	if (client->_gateway_thread) {
 		client_disconnect(client);
@@ -39,6 +39,8 @@ void client_free(discord_client_t* client) {
 	free(client);
 }
 
+
+// start routine for the gateway_thread
 void *client_listen(void* arg) {
 	discord_client_t* client = arg;
 

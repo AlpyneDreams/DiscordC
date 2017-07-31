@@ -4,7 +4,7 @@
 #include <pthread.h>
 #include <time.h>
 
-#include <cJSON/cJSON.h>
+#include <cjson/cJSON.h>
 
 #include "client_internal.h"
 
@@ -17,6 +17,10 @@
 	if (c->_callbacks && c->_callbacks->on_ ## cb) \
 		c->_callbacks->on_ ## cb (c, __VA_ARGS__)
 
+#define CALLBACK_VOID(c, cb) \
+	if (c->_callbacks && c->_callbacks->on_ ## cb) \
+		c->_callbacks->on_ ## cb (c)
+
 /* validates a token, ensuring it has at least three "sections". */
 int validateToken(const char* token) {
 	return sscanf(token, "%*s.%*s.%*s");
@@ -27,8 +31,7 @@ void realloc_copy(char** dest, const char* src) {
 	strcpy(*dest, src);
 }
 
-void timespec_diff(struct timespec *start, struct timespec *stop, struct timespec *result)
-{
+void timespec_diff(struct timespec *start, struct timespec *stop, struct timespec *result) {
 	if ((stop->tv_nsec - start->tv_nsec) < 0) {
 		result->tv_sec = stop->tv_sec - start->tv_sec - 1;
 		result->tv_nsec = stop->tv_nsec - start->tv_nsec + 1000000000;
@@ -108,6 +111,7 @@ void client_handle_dispatch(discord_client_t* client, const enum DISPATCH_TYPE d
 	switch (dispatch) {
 		case DISPATCH_READY:
 		{
+			CALLBACK_VOID(client, connected);
 			break;
 		}
 		case DISPATCH_MESSAGE_CREATE:
@@ -124,15 +128,19 @@ void client_handle_dispatch(discord_client_t* client, const enum DISPATCH_TYPE d
 			break;
 		}
 		default:
-			printf("Unhandled dispatch: %s\n", dispatch_str);
+		{
+			CALLBACK(client, unhandled_dispatch, dispatch_str, root);
+		}
 	}
 }
+
 
 int client_ws_receive_callback(client_websocket_t* socket, char* data, size_t length) {
 	discord_client_t* client = (discord_client_t*)websocket_get_userdata(socket);
 
 	(void)length; /* unused as data is null-terminated */
 
+	// allocation errors
 	cJSON* root = cJSON_Parse(data);
 
 	if (root) {

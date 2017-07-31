@@ -2,8 +2,7 @@
  * Models wrapping the gateway API
  */
 
-#ifndef _gateway_h_
-#define _gateway_h_
+#pragma once
 
 #include <stdint.h>
 
@@ -77,5 +76,3 @@ enum DISPATCH_TYPE {
 
 	DISPATCH_TYPE_COUNT
 };
-
-#endif /* _gateway_h_ */

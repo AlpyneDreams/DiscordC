@@ -1,8 +1,7 @@
 #include "websocket.h"
 #include "websocket_internal.h"
 
-int discord_protocol(struct lws* wsi, enum lws_callback_reasons reason,
-		void* user, void* in, size_t len) {
+int discord_protocol(struct lws* wsi, enum lws_callback_reasons reason, void* user, void* in, size_t len) {
 
 	client_websocket_t* client = (client_websocket_t*)user;
 
@@ -12,7 +11,7 @@ int discord_protocol(struct lws* wsi, enum lws_callback_reasons reason,
 		lws_close_reason(wsi, LWS_CLOSE_STATUS_NORMAL, "", 0);
 		client->_connected = 0;
 		client->_remain_connected = 0;
-		
+
 		return 1;
 	}
 	*/
@@ -62,7 +61,7 @@ int discord_protocol(struct lws* wsi, enum lws_callback_reasons reason,
 			}
 
 			memcpy(client->_current_packet + old_length, in, len);
-			
+
 			if (lws_is_final_fragment(wsi)) {
 				char* data = client->_current_packet;
 				size_t data_len = client->_current_packet_length;
@@ -73,7 +72,9 @@ int discord_protocol(struct lws* wsi, enum lws_callback_reasons reason,
 				if (client->_callbacks->on_receive)
 					success = client->_callbacks->on_receive(client, data, data_len);
 
-				free(client->_current_packet);
+				// this here may be causing allocation errors
+				// by conflicting with the realloc call above
+				//free(client->_current_packet);
 				client->_current_packet = NULL;
 				client->_current_packet_length = 0;
 
