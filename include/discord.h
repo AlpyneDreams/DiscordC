@@ -2,7 +2,7 @@
 
 #define LIB_EXPORT __attribute__((__visibility__("default")))
 
-#define DISCCORD_PROJECT_URL "https://github.com/DankParrot/DiscordC"
+#define DISCCORD_PROJECT_URL "https://github.com/AlpyneDreams/DiscordC"
 #define DISCCORD_VERSION_STRING "DiscordC 0.1.1-dev"
 
 #define _build_user_agent(a, b) "DiscordBot (" a ", " b ")"
@@ -19,7 +19,7 @@
 #define DISCORD_INVITE_URL ("https://discord.gg/")
 
 /* Initializes disccord, calling all prerequesite functions. */
-LIB_EXPORT void disccord_init();
+LIB_EXPORT void discord_init();
 
 /* Cleans up all resources created by disccord */
-LIB_EXPORT void disccord_cleanup();
+LIB_EXPORT void discord_cleanup();
