@@ -17,33 +17,16 @@
 typedef struct discord_client discord_client_t;
 
 /**************************************************
-	Users
-		user_info_t
-
-		get_user_name
-		get_user_id
-		get_user_discrim
-		get_user_info
+	Structs
 **************************************************/
 
 typedef struct {
-	uint64_t _user_id;
-	uint16_t _discriminator;
-	const char* _name;
-	uint32_t _name_len;
-	discord_client_t* _client;
+	uint64_t user_id;
+	uint16_t discriminator;
+	const char* name;
+	uint32_t name_len;
+	discord_client_t* client;
 } user_info_t;
-
-LIB_EXPORT const char* get_user_name(user_info_t* user, int* length);
-LIB_EXPORT uint64_t get_user_id(user_info_t* user);
-LIB_EXPORT uint16_t get_user_discrim(user_info_t* user);
-
-LIB_EXPORT user_info_t *get_user_info(discord_client_t* client, uint64_t id);
-
-/**************************************************
-	Messages
-		message_t
-**************************************************/
 
 typedef struct {
 	uint64_t _channel_id;
@@ -51,7 +34,6 @@ typedef struct {
 	const char* _contents;
 	user_info_t* _sender;
 } message_t;
-
 
 /**************************************************
 	Callbacks
@@ -78,15 +60,15 @@ typedef struct {
 } discord_client_callbacks_t;
 
 /**************************************************
-	Client (client.c)
+	Client
 		struct discord_client
 
 		discord_create_client
 		discord_free_client
 
 		client_connect
-		client_disconnect
-		client_send_message
+		discord_client_disconnect
+		discord_send_message
 **************************************************/
 
 // this is typedef'd as discord_client_t up top
@@ -107,10 +89,12 @@ struct discord_client {
 	discord_client_callbacks_t* _callbacks;
 };
 
-LIB_EXPORT discord_client_t* discord_create_client(discord_client_callbacks_t* callbacks, const char* token);
-LIB_EXPORT void discord_free_client(discord_client_t* client);
+discord_client_t* discord_create_client(discord_client_callbacks_t* callbacks, const char* token);
+void discord_free_client(discord_client_t* client);
 
-LIB_EXPORT void client_connect(discord_client_t* client);
-LIB_EXPORT void client_disconnect(discord_client_t* client);
+void discord_client_connect(discord_client_t* client);
+void discord_client_disconnect(discord_client_t* client);
 
-LIB_EXPORT void client_send_message(discord_client_t* client, uint64_t channel_id, const char* contents);
+void discord_send_message(discord_client_t* client, uint64_t channel_id, const char* contents);
+
+user_info_t* discord_get_user(discord_client_t* client, uint64_t id);

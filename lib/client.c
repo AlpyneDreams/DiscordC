@@ -30,7 +30,7 @@ discord_client_t* discord_create_client(discord_client_callbacks_t* callbacks, c
 void discord_free_client(discord_client_t* client) {
 	/* disconnect the websocket if we are connected */
 	if (client->_gateway_thread) {
-		client_disconnect(client);
+		discord_client_disconnect(client);
 	}
 
 	curl_multi_cleanup(client->_curl_handle);
@@ -68,13 +68,13 @@ void *client_listen(void* arg) {
 	return NULL;
 }
 
-void client_connect(discord_client_t* client) {
+void discord_client_connect(discord_client_t* client) {
 	pthread_t* gateway_thread = malloc(sizeof(pthread_t));
 	pthread_create(gateway_thread, NULL, client_listen, client);
 	client->_gateway_thread = gateway_thread;
 }
 
-void client_disconnect(discord_client_t* client) {
+void discord_client_disconnect(discord_client_t* client) {
 	websocket_disconnect(client->_client_socket);
 
 	/* cancel the gateway thread if it exists */

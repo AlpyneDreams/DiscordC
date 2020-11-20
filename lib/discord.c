@@ -7,7 +7,7 @@
 
 #include "discord.h"
 
-void disccord_init() {
+void discord_init() {
 	curl_global_init(CURL_GLOBAL_ALL);
 #ifdef LIBWEBSOCKET_DEBUG
 	/* enable debugging of libwebsockets in case of errors */
@@ -18,7 +18,7 @@ void disccord_init() {
 }
 
 
-void disccord_cleanup() {
+void discord_cleanup() {
 	ERR_remove_thread_state(NULL);
 
 	EVP_cleanup();

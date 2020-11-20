@@ -45,4 +45,6 @@ These aren't my fault, they're leftover from the fork.
 - `client_internal.c: client_ws_receive_callback -> cJSON_Parse`
 - `websocket.c: websocket_free`
 - `websocket_internal.c: on LWS_CALLBACK_CLIENT_RECEIVE calls realloc`
-- `client.c: client_send_message -> exec_request`
+- `client.c: discord_send_message -> exec_request`
+
+also segfault after freeing client sometimes

@@ -208,6 +208,6 @@ int client_ws_connection_error_callback(client_websocket_t* socket, char* reason
 
 	printf("Connection error: %s (%zu)\n", reason, length);
 
-	client_disconnect(client);
+	discord_client_disconnect(client);
 	return 0;
 }

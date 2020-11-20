@@ -5,7 +5,7 @@
 #include "client.h"
 
 int main() {
-	disccord_init();
+	discord_init();
 
 	printf("Creating client...\n");
 	discord_client_t* client = discord_create_client(NULL, "");
@@ -15,6 +15,6 @@ int main() {
 	discord_free_client(client);
 	printf("Successfully freed client!\n");
 
-	disccord_cleanup();
+	discord_cleanup();
 	return 0;
 }

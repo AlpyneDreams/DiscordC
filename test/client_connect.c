@@ -7,15 +7,15 @@
 
 int on_message_received(discord_client_t* client, message_t* message) {
 	printf("Message received: %s\n", message->_contents); /* TODO: provide better methods for this */
-	if (strstr(message->_contents, "!ping") == message->_contents) {
+	if (strstr(message->_contents, "§ping") == message->_contents) {
 		printf("Received ping command!\n");
 
 		char data[256];
 		sprintf(data, "Hello, world, from C!\nUsing %s at <%s>!\nCurrent Gateway Latency: %1.0fms", DISCCORD_VERSION_STRING, DISCCORD_PROJECT_URL, client->_latency);
 
-		printf("Sending %s\n", data);
+		printf("%s\n", data);
 
-		client_send_message(client, message->_channel_id, data);
+		//discord_send_message(client, message->_channel_id, data);
 	}
 	return 0;
 }
@@ -50,7 +50,7 @@ int main() {
 
 	const char* token = get_token("token.data.txt");
 
-	disccord_init();
+	discord_init();
 
 	discord_client_callbacks_t callbacks;
 	callbacks.on_connected = on_connected;
@@ -67,12 +67,12 @@ int main() {
 	}
 
 	printf("Connecting...\n");
-	client_connect(client);
+	discord_client_connect(client);
 
 	sleep(120);
 
 	printf("Disconnecting...\n");
-	client_disconnect(client);
+	discord_client_disconnect(client);
 
 	sleep(3); /* ensure there's enough time to disconnect cleanly */
 
@@ -80,6 +80,6 @@ int main() {
 	discord_free_client(client);
 	printf("Successfully freed client!\n");
 
-	disccord_cleanup();
+	discord_cleanup();
 	return 0;
 }
