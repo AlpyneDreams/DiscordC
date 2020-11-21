@@ -114,11 +114,11 @@ void client_handle_dispatch(discord_client_t* client, const enum DISPATCH_TYPE d
 		case DISPATCH_MESSAGE_CREATE:
 		{
 			message_t message;
-			sscanf(cJSON_GetObjectItem(d, "id")->valuestring, "%lu", &message._message_id);
-			message._contents = cJSON_GetObjectItem(d, "content")->valuestring;
-			sscanf(cJSON_GetObjectItem(d, "channel_id")->valuestring, "%lu", &message._channel_id);
+			sscanf(cJSON_GetObjectItem(d, "id")->valuestring, "%lu", &message.id);
+			message.contents = cJSON_GetObjectItem(d, "content")->valuestring;
+			sscanf(cJSON_GetObjectItem(d, "channel_id")->valuestring, "%lu", &message.channel_id);
 
-			/*message._sender = create_user(cJSON_GetObjectIdem(d, "author")); */ /* TODO: user impl. */
+			/*message.sender = create_user(cJSON_GetObjectIdem(d, "author")); */ /* TODO: user impl. */
 
 			CALLBACK(client, message_receive, &message);
 

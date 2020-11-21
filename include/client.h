@@ -29,10 +29,10 @@ typedef struct {
 } user_info_t;
 
 typedef struct {
-	uint64_t _channel_id;
-	uint64_t _message_id;
-	const char* _contents;
-	user_info_t* _sender;
+	uint64_t id;
+	uint64_t channel_id;
+	const char* contents;
+	user_info_t* sender;
 } message_t;
 
 /**************************************************

@@ -6,16 +6,16 @@
 #include "client.h"
 
 int on_message_received(discord_client_t* client, message_t* message) {
-	printf("Message received: %s\n", message->_contents); /* TODO: provide better methods for this */
-	if (strstr(message->_contents, "§ping") == message->_contents) {
+	//printf("Message received: %s\n", message->contents); /* TODO: provide better methods for this */
+	if (strstr(message->contents, "§ping") == message->contents) {
 		printf("Received ping command!\n");
 
 		char data[256];
 		sprintf(data, "Hello, world, from C!\nUsing %s at <%s>!\nCurrent Gateway Latency: %1.0fms", DISCCORD_VERSION_STRING, DISCCORD_PROJECT_URL, client->_latency);
 
-		printf("%s\n", data);
+		//printf("%s\n", data);
 
-		//discord_send_message(client, message->_channel_id, data);
+		discord_send_message(client, message->channel_id, data);
 	}
 	return 0;
 }
