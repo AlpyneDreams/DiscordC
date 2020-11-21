@@ -5,6 +5,7 @@
 
 #include "client.h"
 #include "client_internal.h"
+#include "discord_objects.h"
 
 discord_client_t* discord_create_client(discord_client_callbacks_t* callbacks, const char* token) {
 	if (!token || !validateToken(token)) {
@@ -22,6 +23,8 @@ discord_client_t* discord_create_client(discord_client_callbacks_t* callbacks, c
 		return NULL;
 
 	realloc_copy(&client->_token, token);
+
+	cache_init(&client->_cache);
 
 	/* TODO: this */
 	return client;

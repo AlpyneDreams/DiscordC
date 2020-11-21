@@ -115,6 +115,8 @@ void client_handle_dispatch(discord_client_t* client, const enum DISPATCH_TYPE d
 
 			client->user.client = client;
 
+			cache_add_user(client, &client->user);
+
 			CALLBACK_VOID(client, connected);
 			break;
 		}

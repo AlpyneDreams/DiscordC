@@ -16,6 +16,8 @@
 // forward declaration
 typedef struct discord_client discord_client_t;
 
+struct discord_cache;
+
 /**************************************************
 	Structs
 **************************************************/
@@ -29,6 +31,9 @@ typedef struct {
 	uint32_t name_len;
 	discord_client_t* client;
 } user_info_t;
+
+user_info_t* get_user(discord_client_t* client, uint64_t id);
+
 
 typedef struct {
 	uint64_t id;
@@ -89,6 +94,8 @@ struct discord_client {
 
 	client_websocket_t* _client_socket;
 	discord_client_callbacks_t* _callbacks;
+
+	struct discord_cache* _cache; 
 
 	user_info_t user;
 };
