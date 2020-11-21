@@ -1,4 +1,5 @@
 .PHONY: all clean
+.PRECIOUS: %_test
 
 # C compiler
 CC=gcc
