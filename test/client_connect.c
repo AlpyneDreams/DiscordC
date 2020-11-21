@@ -25,7 +25,7 @@ void on_unhandled_dispatch(discord_client_t* client, char* dispatch_str, cJSON* 
 }
 
 void on_connected(discord_client_t* client) {
-	printf("Connected.\n");
+	printf("Connected as user @%s#%s\n", client->user.name, client->user.discriminator);
 }
 
 char* get_token(const char* file) {

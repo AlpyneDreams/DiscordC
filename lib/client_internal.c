@@ -11,6 +11,7 @@
 #include "models/dispatches.h"
 
 #include "snowflake.h"
+#include "discord_objects.h"
 
 #define CALLBACK(c, cb, ...) \
 	if (c->_callbacks && c->_callbacks->on_ ## cb) \
@@ -110,6 +111,10 @@ void client_handle_dispatch(discord_client_t* client, const enum DISPATCH_TYPE d
 	switch (dispatch) {
 		case DISPATCH_READY:
 		{
+			discord_parse_user(cJSON_GetObjectItem(d, "user"), &client->user);
+
+			client->user.client = client;
+
 			CALLBACK_VOID(client, connected);
 			break;
 		}

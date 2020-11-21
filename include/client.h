@@ -20,9 +20,11 @@ typedef struct discord_client discord_client_t;
 	Structs
 **************************************************/
 
+#define DISCORD_DISCRIMINATOR_LENGTH 4
+
 typedef struct {
-	uint64_t user_id;
-	uint16_t discriminator;
+	uint64_t id;
+	const char discriminator[DISCORD_DISCRIMINATOR_LENGTH];
 	const char* name;
 	uint32_t name_len;
 	discord_client_t* client;
@@ -87,6 +89,8 @@ struct discord_client {
 
 	client_websocket_t* _client_socket;
 	discord_client_callbacks_t* _callbacks;
+
+	user_info_t user;
 };
 
 discord_client_t* discord_create_client(discord_client_callbacks_t* callbacks, const char* token);
