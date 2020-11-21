@@ -10,6 +10,8 @@
 #include "models/gateway.h"
 #include "models/dispatches.h"
 
+#include "snowflake.h"
+
 #define CALLBACK(c, cb, ...) \
 	if (c->_callbacks && c->_callbacks->on_ ## cb) \
 		c->_callbacks->on_ ## cb (c, __VA_ARGS__)
@@ -114,9 +116,9 @@ void client_handle_dispatch(discord_client_t* client, const enum DISPATCH_TYPE d
 		case DISPATCH_MESSAGE_CREATE:
 		{
 			message_t message;
-			sscanf(cJSON_GetObjectItem(d, "id")->valuestring, "%lu", &message.id);
+			message.id = read_snowflake(cJSON_GetObjectItem(d, "id")->valuestring);
 			message.contents = cJSON_GetObjectItem(d, "content")->valuestring;
-			sscanf(cJSON_GetObjectItem(d, "channel_id")->valuestring, "%lu", &message.channel_id);
+			message.channel_id = read_snowflake(cJSON_GetObjectItem(d, "channel_id")->valuestring);
 
 			/*message.sender = create_user(cJSON_GetObjectIdem(d, "author")); */ /* TODO: user impl. */
 
